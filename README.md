@@ -1,7 +1,7 @@
 This is a simple Crypto Statistics WebApp that displays the top ten currencies and lets you add them to your portfolio.
 [Let's try it](https://sangeetmanghnani.github.io/crypto-stats/)
 
-##Steps to run locally
+## Steps to run locally
 - Go to the root folder
 - npm install
 - npm run start

@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "author": "Sangeet Manghnani",
+  "homepage": "http://sangeetmanghnani.github.io/crypto-stats",
   "dependencies": {
     "axios": "^0.17.1",
     "lodash": "^4.17.4",
@@ -13,17 +14,20 @@
     "react-flexbox-grid": "^2.0.0"
   },
   "devDependencies": {
-    "react-scripts": "1.1.0",
     "eslint": "4.14.0",
     "eslint-config-airbnb": "16.0.0",
     "eslint-plugin-import": "2.7.0",
     "eslint-plugin-jsx-a11y": "6.0.2",
-    "eslint-plugin-react": "7.4.0"
+    "eslint-plugin-react": "7.4.0",
+    "gh-pages": "^1.1.0",
+    "react-scripts": "1.1.0"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   }
 }

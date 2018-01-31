@@ -1,0 +1,18 @@
+.Home .list-wrapper{
+    padding: 2rem;
+  }
+  .Home .refresh-button{
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+  .Home .refresh-button i{
+    color: #293592;
+    cursor: pointer;
+  }
+
+  .active{
+    color: #293592 !important;
+  }
+  .Home .row{
+    width: 100%;
+  }

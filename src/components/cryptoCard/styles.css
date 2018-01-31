@@ -1,0 +1,37 @@
+.crypto-card{
+    margin-bottom: 1rem !important;
+    pointer: cursor;
+}
+.crypto-card .card-body{
+    padding-top: 0 !important;
+}
+.crypto-card .card-body .head span{
+    display: flex;
+    align-items: center;
+}
+
+.crypto-card .card-body .body{
+    justify-content: space-between;
+    padding-right: 1rem;
+    padding-left: 1rem;
+    padding-top: 1rem;
+}
+.crypto-card .card-body .body .changeTitle{
+    margin-right: 1rem;
+}
+.crypto-card .card-body .body .positive{
+    color: #00695C;
+    font-weight: 700;
+}
+.crypto-card .card-body .body .negative{
+    color: #C62828;
+    font-weight: 700;
+}
+.crypto-card .card-body .head span i {
+    margin-left: 1rem;
+    font-size: 18px;
+}
+.crypto-card .card-body .row{
+    padding-left: 0.5rem;
+    padding-bottom: 0.5rem;
+}

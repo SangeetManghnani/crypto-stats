@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Row, Col } from 'react-flexbox-grid';
 import CryptoCard from '../cryptoCard/CryptoCard';
+
+// import portfolio coin add function
+import portfolioCoinAdd from '../../actions/PortfolioActions';
+
 
 const defaultProps = {
   showCount: 10,
@@ -14,10 +19,10 @@ class CryptoList extends Component {
     super(props);
 
     this.renderCryptoList = this.renderCryptoList.bind(this);
-    this.addToParent = this.addToParent.bind(this);
+    this.addToPortfolio = this.addToPortfolio.bind(this);
   }
-  addToParent(coin) {
-    this.props.addToPortfolio(coin);
+  addToPortfolio(coin) {
+    this.props.dispatch(portfolioCoinAdd(coin));
   }
   renderCryptoList = () => {
     const currenciesToRender = [];
@@ -32,8 +37,7 @@ class CryptoList extends Component {
           changeHour={coin.percent_change_1h}
           changeDay={coin.percent_change_24h}
           changeWeek={coin.percent_change_7d}
-          onCardClick={() => { this.addToParent(coin); }}
-        //   image={baseUrl + coin.ImageUrl}
+          onCardClick={() => { this.addToPortfolio(coin); }}
         />
       </Col>);
     });
@@ -60,4 +64,9 @@ CryptoList.propTypes = {
   addToPortfolio: PropTypes.func,
 };
 
-export default CryptoList;
+const mapStateToProps = state => ({
+  isAdded: state.portfolio.isAdded,
+});
+export default connect(mapStateToProps)(CryptoList);
+
+

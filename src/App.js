@@ -1,11 +1,15 @@
 import React, { Component } from 'react';
 import _ from 'lodash';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { fetchAllCoins } from './actions/HomeActions';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { indigo800 } from 'material-ui/styles/colors';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import AppBar from 'material-ui/AppBar';
 import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
+import CircularProgress from 'material-ui/CircularProgress';
 import Home from './components/home/Home';
 import { Snackbar } from 'material-ui';
 
@@ -15,6 +19,10 @@ const muiTheme = getMuiTheme({
   },
 });
 
+const defaultProps = {
+  isFetchingCoins: true,
+  portfolioList: [],
+};
 class App extends Component {
   constructor(props) {
     super(props);
@@ -31,6 +39,10 @@ class App extends Component {
     this.setPage = this.setPage.bind(this);
     this.addToPortfolio = this.addToPortfolio.bind(this);
     this.handleRequestClose = this.handleRequestClose.bind(this);
+  }
+  componentDidMount() {
+    // load initial files
+    // this.props.dispatch(fetchAllCoins());
   }
   setPage(page) {
     this.setState({
@@ -73,13 +85,18 @@ class App extends Component {
    render() {
      return (
        <div className="App">
-         <MuiThemeProvider muiTheme={muiTheme}>
+        <MuiThemeProvider muiTheme={muiTheme}>
+         {this.props.isFetchingCoins ? 
+          <div>
+            <CircularProgress size={80} thickness={5} />
+          </div>
+         :
+         <div>
            <AppBar title={this.state.title} onLeftIconButtonClick={this.toggleDrawer} />
            <Drawer
              docked={false}
              width={200}
              open={this.state.open}
-            //  onRequestChange={open => this.setState({ open })}
            >
              <MenuItem onClick={() => { this.setPage('list'); }} className={`${this.state.page === 'list' ? 'active' : null}`}>Home</MenuItem>
              <MenuItem onClick={() => { this.setPage('portfolio'); }} className={`${this.state.page === 'portfolio' ? 'active' : null}`}>Portfolio</MenuItem>
@@ -90,11 +107,28 @@ class App extends Component {
              autoHideDuration={2000}
              onRequestClose={this.handleRequestClose}
            />
-           <Home page={this.state.page} addToPortfolio={this.addToPortfolio} portfolioList={this.state.portfolioList} />
+           <Home page={this.state.page} portfolioList={this.props.portfolioList} coins={this.props.coinList}/>
+           </div>
+          }
          </MuiThemeProvider>
        </div>
      );
    }
 }
 
-export default App;
+App.defaultProps = defaultProps;
+App.propTypes = {
+  isFetchingCoins: PropTypes.bool,
+  portfolioList: PropTypes.array,
+};
+// redux stuff goes here
+const mapStateToProps = state => ({
+  isFetchingCoins: state.home.isFetching,
+  coinList: state.home.coins,
+  portfolioList: state.portfolio.coins,
+});
+const mapDispatchToProps = dispatch => ({
+  fetchAllCoins: dispatch(fetchAllCoins()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

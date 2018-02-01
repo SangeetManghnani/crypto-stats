@@ -31,7 +31,6 @@ class CryptoCard extends Component {
             <FloatingActionButton mini backgroundColor={indigo800} onClick={() => { this.props.onCardClick(); }}>
               <ContentAdd />
             </FloatingActionButton>
-            {/* <span>{this.props.price} </span><i className="material-icons">monetization_on</i> */}
           </Row>
           <Row className="body">
             <Col><span className="changeTitle">Hourly</span><span className={`${(parseInt(this.props.changeHour) > 0 ? 'positive ' : 'negative')}`}>{this.props.changeHour}%</span></Col>

@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Row, Col } from 'react-flexbox-grid';
 import getCoinList from '../../api/api';
 import CryptoList from '../cryptList/CryptoList';
-// import CryptoTable from '../cryptoTable/CryptoTable';
+import { fetchAllCoins } from '../../actions/HomeActions';
 import './home.css';
 
 const defaultProps = {
@@ -11,25 +12,14 @@ const defaultProps = {
   addToPortfolio: () => {},
   portfolioList: [],
 };
+
 class Home extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      coinList: [],
-    };
 
     this.addtoParentPorfolio = this.addtoParentPorfolio.bind(this);
     this.renderPages = this.renderPages.bind(this);
-  }
-  componentDidMount() {
-    getCoinList((err, data) => {
-      if (data) {
-        this.setState({
-          coinList: data,
-        });
-      }
-    });
   }
   addtoParentPorfolio = (coin) => {
     this.props.addToPortfolio(coin);
@@ -40,9 +30,8 @@ class Home extends Component {
       return (<CryptoList cryptoList={this.props.portfolioList} showCount={10} />);
     }
     return (<CryptoList
-      cryptoList={this.state.coinList}
+      cryptoList={this.props.coins}
       showCount={10}
-      addToPortfolio={this.addtoParentPorfolio}
     />);
   }
   render() {
@@ -66,5 +55,6 @@ Home.propTypes = {
   addToPortfolio: PropTypes.func,
   portfolioList: PropTypes.array,
 };
+
+
 export default Home;
-//
